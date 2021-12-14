@@ -7,12 +7,12 @@ $port = "";
 try {
   $pdo = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "Connected succesfully";
+  // echo "Connected succesfully";
 } catch (PDOException $e) {
   echo "Connection failed: " . $e->getMessage();
 }
 
-$selectAll = $pdo->prepare("SELECT * from hikes ORDER BY title ASC;");
+$selectAll = $pdo->prepare("SELECT * from hikes ORDER BY id DESC;");
 $selectAll->execute();
 $hikes = $selectAll->fetchAll(PDO::FETCH_ASSOC);
 
@@ -45,16 +45,21 @@ $hikes = $selectAll->fetchAll(PDO::FETCH_ASSOC);
 
 
 <div class="card " style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="<?php echo $hike['image']?>" class="card-img-top" alt="...">
     <div class="card-body">
         <h6><?php echo $hike["id"];?></h6>
         <h5 class="card-title"><?php echo $hike["title"]; ?></h5>
-        <p class="card-text"><?php echo $hike["duration"]; ?> min</p>
-        <p class="card-text"><?php echo $hike["elevation"];?> mètres</p>
-        <p class="card-text"><?php echo $hike["distance"]; ?> km</p>
+        <p class="card-text"> Duration:<?php echo $hike["duration"]; ?> min</p>
+        <p class="card-text">Elevation gain:<?php echo $hike["elevation"];?> mètres</p>
+        <p class="card-text">Distance :<?php echo $hike["distance"]; ?> km</p>
         <button type="button" class="btn btn-primary btn-sm">Edit</button>
-        <button type="button" class="btn btn-danger btn-sm">Delete</button>
+        <!-- delete button POST method -->
+        <form action="delete.php" method="post" style="display: inline-block">
+          <input type="hidden" name="id" value="<?php echo $hike["id"]; ?>" />
+          <button type="submit"  class="btn btn-danger btn-sm">Delete</button>
+        </form>
         <a href="#" class="btn btn-primary btn-sm">Full description</a>
+        
     </div>
 </div>
 

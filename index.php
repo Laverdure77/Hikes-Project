@@ -52,13 +52,14 @@ $hikes = $selectAll->fetchAll(PDO::FETCH_ASSOC);
         <p class="card-text"> Duration:<?php echo $hike["duration"]; ?> min</p>
         <p class="card-text">Elevation gain:<?php echo $hike["elevation"];?> mètres</p>
         <p class="card-text">Distance :<?php echo $hike["distance"]; ?> km</p>
-        <button type="button" class="btn btn-primary btn-sm">Edit</button>
+        <!-- edit button -->
+        <a href="edit.php?id=<?php echo $hike["id"]?>"  class="btn btn-primary btn-sm">Edit</a>
         <!-- delete button POST method -->
         <form action="delete.php" method="post" style="display: inline-block">
           <input type="hidden" name="id" value="<?php echo $hike["id"]; ?>" />
           <button type="submit"  class="btn btn-danger btn-sm">Delete</button>
         </form>
-        <a href="#" class="btn btn-primary btn-sm">Full description</a>
+        <a href="full.php?id=<?php echo $hike["id"]?>" class="btn btn-primary btn-sm">Full description</a>
         
     </div>
 </div>
